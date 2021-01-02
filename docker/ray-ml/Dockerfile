@@ -1,5 +1,5 @@
 ARG GPU
-FROM rayproject/ray:nightly"$GPU"
+FROM jquant/ray:6c93cb0bf"$GPU"
 
 # We have to uninstall wrapt this way for Tensorflow compatibility
 COPY requirements.txt ./
@@ -13,8 +13,8 @@ RUN sudo apt-get update \
         libgtk2.0-dev \
         zlib1g-dev \
         libgl1-mesa-dev \
-    && $HOME/anaconda3/bin/pip --use-deprecated=legacy-resolver --no-cache-dir install -r requirements.txt \ 
-    && $HOME/anaconda3/bin/pip --use-deprecated=legacy-resolver --no-cache-dir install -r requirements_ml_docker.txt \
+    && $HOME/anaconda3/bin/pip --no-cache-dir install -r requirements.txt \ 
+    && $HOME/anaconda3/bin/pip --no-cache-dir install -r requirements_ml_docker.txt \
     # Remove dataclasses & typing because they are included in Py3.7
     && $HOME/anaconda3/bin/pip uninstall dataclasses typing -y  \ 
     && sudo rm requirements.txt && sudo rm requirements_ml_docker.txt \
